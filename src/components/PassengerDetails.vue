@@ -8,6 +8,7 @@
           required
           placeholder="Enter name"
         ></b-form-input>
+        </b-form-group>
       <b-form-group id="input-group-24" label="SurName:" label-for="input-24">
         <b-form-input
           id="input-22"
@@ -47,6 +48,16 @@
         </b-form-checkbox-group>
       </b-form-group>
 
+       <b-form-group id="input-group-34" :label=item.price label-for="input-34"  v-for="item in items" v-bind:key="item.id">
+        <b-form-select
+          :id=item.id
+          :options=item.name
+        ></b-form-select>
+        <p>{{item.name}}</p>
+      </b-form-group>
+
+
+
       <b-button type="submit" variant="primary" v-b-modal.modal-1>Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
@@ -58,6 +69,8 @@
 
 <script>
 
+import axios from 'axios'
+
 export default {
     data() {
       return {
@@ -67,9 +80,11 @@ export default {
           surname: '',
           food: null,
           checked: []
+       
         },
         foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        show: true
+        show: true,
+        items:[]
       }
     },
     methods: {
@@ -90,7 +105,15 @@ export default {
         this.$nextTick(() => {
           this.show = true
         })
-      }
+      },
+    async fetchItems() {
+      const response2 = await axios.get('http://demo4507124.mockable.io/products')
+      this.items = response2.data.slice(0, 5)
     }
+  },
+  created: function(){
+    this.fetchItems()
   }
+}
+  
 </script>

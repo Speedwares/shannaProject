@@ -53,7 +53,7 @@
 
 <div>
   <b-modal id="modal-1" title="BootstrapVue">
-    <p class="my-4">Hello from modal!</p>
+    <PassengerDetails/>
       <div slot="modal-footer" class="w-100">
       
       </div>
@@ -63,8 +63,11 @@
 </template>
 
 <script>
-
+import PassengerDetails from './../components/PassengerDetails.vue'
 export default {
+   components: {
+    PassengerDetails
+  },
     data() {
       return {
         form: {
