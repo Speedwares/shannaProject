@@ -1,7 +1,21 @@
 <template>
   <div class="home">
- <b-jumbotron style="width: 500px;margin-right:auto;margin-left: auto" class="center-block">
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+       <b-form-group id="input-group-23" label="Name:" label-for="input-23">
+        <b-form-input
+          id="input-23"
+          v-model="form.name"
+          required
+          placeholder="Enter name"
+        ></b-form-input>
+      <b-form-group id="input-group-24" label="SurName:" label-for="input-24">
+        <b-form-input
+          id="input-22"
+          v-model="form.surname"
+          required
+          placeholder="Enter Surname"
+        ></b-form-input>
+      </b-form-group>
       <b-form-group
         id="input-group-1"
         label="Email address:"
@@ -14,15 +28,6 @@
           type="email"
           required
           placeholder="Enter email"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
-          required
-          placeholder="Enter name"
         ></b-form-input>
       </b-form-group>
 
@@ -45,19 +50,8 @@
       <b-button type="submit" variant="primary" v-b-modal.modal-1>Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card>
-
-  </b-jumbotron>
-
 <div>
-  <b-modal id="modal-1" title="BootstrapVue">
-    <p class="my-4">Hello from modal!</p>
-      <div slot="modal-footer" class="w-100">
-      
-      </div>
-  </b-modal>
+
 </div>
   </div>
 </template>
@@ -70,6 +64,7 @@ export default {
         form: {
           email: '',
           name: '',
+          surname: '',
           food: null,
           checked: []
         },
@@ -80,13 +75,14 @@ export default {
     methods: {
       onSubmit(evt) {
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
+      
       },
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
         this.form.email = ''
         this.form.name = ''
+        this.form.surname = ''
         this.form.food = null
         this.form.checked = []
         // Trick to reset/clear native browser form validation state
