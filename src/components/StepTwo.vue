@@ -1,41 +1,100 @@
 <template>
-    <div class="card" style="margin: 3rem">
-        <header class="card-header">
-            <p class="card-header-title">
-                Component
-            </p>
-            <a href="#" class="card-header-icon" aria-label="more options">
-              <span class="icon">
-                <i class="fa fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </a>
-        </header>
-        <div class="card-content">
-            <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                <br>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+    <div style="padding: 2rem 3rem; text-align: left;">
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input :class="['input', ($v.form.name.$error) ? 'is-danger' : '']" type="text" 
+                       v-model="form.name">
             </div>
+            <p v-if="$v.form.name.$error" class="help is-danger">This name is invalid</p>
         </div>
-        <footer class="card-footer">
-            <a class="card-footer-item">Save</a>
-            <a class="card-footer-item">Edit</a>
-            <a class="card-footer-item" @click="canContinue">Can Continue</a>
-        </footer>
+        <div class="field">
+            <label class="label">Surname</label>
+            <div class="control">
+                <input :class="['input', ($v.form.surname.$error) ? 'is-danger' : '']" type="text" 
+                       v-model="form.surname">
+            </div>
+            <p v-if="$v.form.name.$error" class="help is-danger">This surname is invalid</p>
+        </div>
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                <input :class="['input', ($v.form.demoEmail.$error) ? 'is-danger' : '']"  type="text" placeholder="Email input" v-model="form.demoEmail">
+            </div>
+            <p v-if="$v.form.demoEmail.$error" class="help is-danger">This email is invalid</p>
+        </div>
+          <div class="field">
+            <label class="label">Phone</label>
+            <div class="control">
+                <input :class="['input', ($v.form.phone.$error) ? 'is-danger' : '']" type="text" 
+                       v-model="form.phone">
+            </div>
+            <p v-if="$v.form.phone.$error" class="help is-danger">The Phone is invalid</p>
+        </div>
     </div>
 </template>
 
 <script>
+    import {validationMixin} from 'vuelidate'
+    import {required, email} from 'vuelidate/lib/validators'
     export default {
-        props: ['currentStep'],
-        methods: {
-          canContinue() {
-              this.$emit('can-continue', {value: true});
-          }
+        props: ['clickedNext', 'currentStep'],
+        mixins: [validationMixin],
+        data() {
+            return {
+                form: {
+                    name: '',
+                    demoEmail: '',
+                    surname: '',
+                    phone:'',
+                }
+            }
+        },
+        validations: {
+            form: {
+                name: {
+                    required
+                },
+                surname: {
+                    required
+                },
+                demoEmail: {
+                    required,
+                    email
+                },
+                phone: {
+                    required
+                }
+               
+            }
+        },
+        watch: {
+            $v: {
+                handler: function (val) {
+                    if(!val.$invalid) {
+                        this.$emit('can-continue', {value: true});
+                    } else {
+                        this.$emit('can-continue', {value: false});
+                        setTimeout(()=> {
+                            this.$emit('change-next', {nextBtnValue: false});
+                        }, 3000)
+                    }
+                },
+                deep: true
+            },
+            clickedNext(val) {
+                console.log(val);
+                if(val === true) {
+                    this.$v.form.$touch();
+                }
+            }
         },
         mounted() {
-//            this.$emit('can-continue', {value: true})
+            if(!this.$v.$invalid) {
+                this.$emit('can-continue', {value: true});
+            } else {
+                this.$emit('can-continue', {value: false});
+            }
         }
     }
 </script>

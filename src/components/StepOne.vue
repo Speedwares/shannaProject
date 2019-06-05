@@ -52,16 +52,20 @@
         },
         validations: {
             form: {
-                username: {
+                name: {
+                    required
+                },
+                surname: {
                     required
                 },
                 demoEmail: {
                     required,
                     email
                 },
-                message: {
+                phone: {
                     required
                 }
+               
             }
         },
         watch: {
