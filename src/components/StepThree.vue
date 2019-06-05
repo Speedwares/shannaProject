@@ -1,12 +1,20 @@
 <template>
     <div style="padding: 2rem 3rem; text-align: left;">
         <div class="field">
-            <label class="label">Usern</label>
+            <label class="label">Name</label>
             <div class="control">
-                <input :class="['input', ($v.form.username.$error) ? 'is-danger' : '']" type="text" placeholder="Text input"
-                       v-model="form.username">
+                <input :class="['input', ($v.form.name.$error) ? 'is-danger' : '']" type="text" 
+                       v-model="form.name">
             </div>
-            <p v-if="$v.form.username.$error" class="help is-danger">This username is invalid</p>
+            <p v-if="$v.form.name.$error" class="help is-danger">This name is invalid</p>
+        </div>
+        <div class="field">
+            <label class="label">Surname</label>
+            <div class="control">
+                <input :class="['input', ($v.form.surname.$error) ? 'is-danger' : '']" type="text" 
+                       v-model="form.surname">
+            </div>
+            <p v-if="$v.form.name.$error" class="help is-danger">This surname is invalid</p>
         </div>
         <div class="field">
             <label class="label">Email</label>
@@ -15,11 +23,13 @@
             </div>
             <p v-if="$v.form.demoEmail.$error" class="help is-danger">This email is invalid</p>
         </div>
-        <div class="field">
-            <label class="label">Message</label>
+          <div class="field">
+            <label class="label">Phone</label>
             <div class="control">
-                <textarea :class="['textarea', ($v.form.message.$error) ? 'is-danger' : '']"  placeholder="Textarea" v-model="form.message"></textarea>
+                <input :class="['input', ($v.form.phone.$error) ? 'is-danger' : '']" type="text" 
+                       v-model="form.phone">
             </div>
+            <p v-if="$v.form.phone.$error" class="help is-danger">The Phone is invalid</p>
         </div>
     </div>
 </template>
@@ -33,24 +43,29 @@
         data() {
             return {
                 form: {
-                    username: '',
+                    name: '',
                     demoEmail: '',
-                    message: ''
+                    surname: '',
+                    phone:'',
                 }
             }
         },
         validations: {
             form: {
-                username: {
+                name: {
+                    required
+                },
+                surname: {
                     required
                 },
                 demoEmail: {
                     required,
                     email
                 },
-                message: {
+                phone: {
                     required
                 }
+               
             }
         },
         watch: {
