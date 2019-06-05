@@ -26,7 +26,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Food:" label-for="input-3">
+      <b-form-group id="input-group-3" label="Phone:" label-for="input-3">
         <b-form-select
           id="input-3"
           v-model="form.food"
@@ -37,13 +37,11 @@
 
       <b-form-group id="input-group-4">
         <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">Check me out</b-form-checkbox>
-          <b-form-checkbox value="that">Check that out</b-form-checkbox>
+          <b-form-checkbox value="me">Accept Privacy policy</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
 
       <b-button type="submit" variant="primary" v-b-modal.modal-1>Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
 
   </b-jumbotron>
@@ -73,7 +71,7 @@ export default {
           food: null,
           checked: []
         },
-        foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        foods: [{ text: '+234', value: null }, '+233', '+112', '+222'],
         show: true
       }
     },
